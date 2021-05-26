@@ -2,7 +2,8 @@
 
 This is a Front end developer task for 3 Sided Cube.
 
-Use React JS and Pokemon API to create an app that is (at the minimum):
+Use React JS and [Pokemon API](https://pokeapi.co) to create an app that is (at the minimum):
+
 * Readable and well laid out code
 * A well laid out project structure
 * JS or TypeScript / HTML and CSS
@@ -28,8 +29,8 @@ Use React JS and Pokemon API to create an app that is (at the minimum):
 * The Submission must have version control history (.git directory) - this is essential so we can see how you went about implementing your solution.
 * Can be zipped up and sent to us via email or hosted on GitHub.
 * Please ensure that with your solution you include the following documentation (this can be included as part of a `README.md` or separate document)
-  * A brief "Getting Started guide" on how to open the project locally
-  * If you used any particular libraries why did you choose them?
-  * Did you have any challenges and if so, how did you overcome them?
-  * Did you add any extra features?
-  * If you had more time, what else would you implement?
+* A brief "Getting Started guide" on how to open the project locally
+* If you used any particular libraries why did you choose them?
+* Did you have any challenges and if so, how did you overcome them?
+* Did you add any extra features?
+* If you had more time, what else would you implement?
