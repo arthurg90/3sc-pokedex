@@ -6,24 +6,26 @@ import { useEffect, useState } from 'react';
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([
-        {
-            "name": "bulbasaur",
-            "url": "https://pokeapi.co/api/v2/pokemon/1/"
+  const [items, setItems] = useState([]); 
+  
+   useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=10")
+      .then(res => res.json())
+      .then(
+        (name) => {
+          setIsLoaded(true);
+          setItems(name.results);
         },
-        {
-            "name": "ivysaur",
-            "url": "https://pokeapi.co/api/v2/pokemon/2/"
-        },
-        {
-            "name": "venusaur",
-            "url": "https://pokeapi.co/api/v2/pokemon/3/"
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
         }
-      ]);   
+      )
+  }, []) 
 
   return (
     <div className="App">
-      <Header text="Pokedex" />
+      <Header text="Pokedex App" />
       <PokeList items={items} />
     </div>
   );
