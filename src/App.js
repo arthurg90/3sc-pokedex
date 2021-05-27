@@ -1,10 +1,11 @@
 import './App.css';
+import Header from "./components/Header";
 import DataComponent from './components/DataComponent';
 
 function App() {
   return (
     <div className="App">
-      <h1>Pokedex</h1>
+      <Header text="Pokedex" />
       <DataComponent />
     </div>
   );
