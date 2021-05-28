@@ -18,7 +18,6 @@ Use React JS and [Pokemon API](https://pokeapi.co) to create an app that is (at 
 * "As a user I want to save my favourite pokemon so that I can easily find them next time I visit the application"
 
 ## Getting Started
-
 * The following endpoint provides a list of Pokemon: https://pokeapi.co/api/v2/pokemon/
 * You may use any other endpoints and resources provided by the Pokeapi to achieve the user stories.
 * Your solution should demonstrate use of version control (git).
