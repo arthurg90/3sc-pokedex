@@ -9,7 +9,7 @@ const StyledListItem = styled.div`
 
 Modal.setAppElement("#root");
 
-const ListItem = (props) => {
+const ListItem = ({item}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pokemon, setPokemon] = useState('');
   const [pokemonData, setPokemonData] = useState([]);
@@ -21,26 +21,27 @@ const ListItem = (props) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+  function handleClick() {
+    setPokemon(item.name);
+    getPokemonData();
+    toggleModal();
+  }
+
   function toggleModal() {
     setIsOpen(!isOpen);
   }
 
-  function handleClick(e) {
-    e.preventDefault();
-    setPokemon(props.item.name);
-    getPokemonData();
-    toggleModal();
-    console.log(pokemon);
-  }
-
   const getPokemonData = () => {
+    const toArray = [];
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     return fetch(url)
       .then((res) => res.json())
       .then(
-        (pokemon) => {
+        (data) => {
           setIsLoaded(true);
-          setPokemonData(pokemon);
+          toArray.push(data);
+          console.log(data);
+          setPokemonData(toArray);
         },
         (error) => {
           setIsLoaded(true);
@@ -55,15 +56,46 @@ const ListItem = (props) => {
         alt="pokemon"
         width="auto"
         height="120px"
-        src={`https://img.pokemondb.net/artwork/large/${props.item.name}.jpg`}
+        src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
       />
-      <h2>{capitalise(props.item.name)}</h2>
+      <h2>{capitalise(item.name)}</h2>
+      <div></div>
       <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
         contentLabel="My dialog"
       >
-        <div>{props.item.name}</div>
+        <div>
+          {pokemonData ?
+            pokemonData.map((data) => {
+              return (
+                <div key={data.id}>
+                  <div>{data.name}</div>
+                  {data.sprites ?
+                    <img src={data.sprites["front_default"]} alt="sprite"/>
+                  : null}
+                  <div className="divTable">
+                    <div className="divTableBody">
+                      <div className="divTableRow">
+                        <div className="divTableCell">Height</div>
+                        <div className="divTableCell">
+                          {" "}
+                          {Math.round(data.height * 3.9)}"
+                        </div>
+                      </div>
+                      <div className="divTableRow">
+                        <div className="divTableCell">Weight</div>
+                        <div className="divTableCell">
+                          {" "}
+                          {Math.round(data.weight / 4.3)} lbs
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }) : null}
+        </div>
       </Modal>
     </StyledListItem>
   );

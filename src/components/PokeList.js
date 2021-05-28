@@ -8,11 +8,10 @@ const StyledList = styled.div`
 `;
 
 const PokeList = (props) => {
-
   return (
     <StyledList>
       {props.items.map((item) => (
-        <ListItem key={item.name} item={item}></ListItem>
+        <ListItem key={item.name} item={item} ></ListItem>
       ))}
     </StyledList>
   );
