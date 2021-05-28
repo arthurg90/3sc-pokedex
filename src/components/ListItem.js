@@ -9,11 +9,11 @@ const StyledListItem = styled.div`
 
 Modal.setAppElement("#root");
 
-const ListItem = ({item}) => {
+const ListItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pokemon, setPokemon] = useState('');
+  const [pokemon, setPokemon] = useState("");
   const [pokemonData, setPokemonData] = useState([]);
-  const [pokemonGen, setPokemonGen] = useState('');
+  const [pokemonGen, setPokemonGen] = useState("");
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -22,7 +22,6 @@ const ListItem = ({item}) => {
   }
 
   function handleClick() {
-    setPokemon(item.name);
     getPokemonData();
     toggleModal();
   }
@@ -30,6 +29,14 @@ const ListItem = ({item}) => {
   function toggleModal() {
     setIsOpen(!isOpen);
   }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  useEffect(() => {
+    setPokemon(item.name);
+  }, [item.name]);
 
   const getPokemonData = () => {
     const toArray = [];
@@ -66,35 +73,39 @@ const ListItem = ({item}) => {
         contentLabel="My dialog"
       >
         <div>
-          {pokemonData ?
-            pokemonData.map((data) => {
-              return (
-                <div key={data.id}>
-                  <div>{data.name}</div>
-                  {data.sprites ?
-                    <img src={data.sprites["front_default"]} alt="sprite"/>
-                  : null}
-                  <div className="divTable">
-                    <div className="divTableBody">
-                      <div className="divTableRow">
-                        <div className="divTableCell">Height</div>
-                        <div className="divTableCell">
-                          {" "}
-                          {Math.round(data.height * 3.9)}"
+          <button onClick={closeModal}>close</button>
+          {pokemonData.length > 0
+            ? pokemonData.map((data) => {
+                return (
+                  <div key={data.id}>
+                    <div>{data.name}</div>
+                    {data.sprites ? (
+                      <img src={data.sprites["front_default"]} alt="sprite" />
+                    ) : (
+                      ""
+                    )}
+                    <div className="divTable">
+                      <div className="divTableBody">
+                        <div className="divTableRow">
+                          <div className="divTableCell">Height</div>
+                          <div className="divTableCell">
+                            {" "}
+                            {Math.round(data.height * 3.9)}"
+                          </div>
                         </div>
-                      </div>
-                      <div className="divTableRow">
-                        <div className="divTableCell">Weight</div>
-                        <div className="divTableCell">
-                          {" "}
-                          {Math.round(data.weight / 4.3)} lbs
+                        <div className="divTableRow">
+                          <div className="divTableCell">Weight</div>
+                          <div className="divTableCell">
+                            {" "}
+                            {Math.round(data.weight / 4.3)} lbs
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            }) : null}
+                );
+              })
+            : null}
         </div>
       </Modal>
     </StyledListItem>
