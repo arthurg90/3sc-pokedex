@@ -9,21 +9,21 @@ const StyledListItem = styled.div`
 `;
 
 const StyledModal = Modal.styled`
+  border-style: solid;
   width: 20rem;
   height: 20rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
+  text-align: center;
 `;
 
 const ListItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pokemon, setPokemon] = useState("");
   const [pokemonData, setPokemonData] = useState([]);
-  const [pokemonGen, setPokemonGen] = useState("");
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   function capitalise(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -53,73 +53,62 @@ const ListItem = ({ item }) => {
       .then((res) => res.json())
       .then(
         (data) => {
-          setIsLoaded(true);
           toArray.push(data);
           console.log(data);
           setPokemonData(toArray);
         },
         (error) => {
-          setIsLoaded(true);
           setError(error);
         }
       );
   };
 
-  return (
-    <StyledListItem onClick={handleClick}>
-      <img
-        alt="pokemon"
-        width="auto"
-        height="120px"
-        src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
-      />
-      <h2>{capitalise(item.name)}</h2>
-      <div></div>
-      <StyledModal
-        isOpen={isOpen}
-        onRequestClose={toggleModal}
-        contentLabel="My dialog"
-      >
-        <div>
-          <Button variant="primary" onClick={closeModal}>
-            x
-          </Button>
-          {pokemonData.length > 0
-            ? pokemonData.map((data) => {
-                return (
-                  <div key={data.id}>
-                    <div>{data.name}</div>
-                    {data.sprites ? (
-                      <img src={data.sprites["front_default"]} alt="sprite" />
-                    ) : (
-                      ""
-                    )}
-                    <div className="divTable">
-                      <div className="divTableBody">
-                        <div className="divTableRow">
-                          <div className="divTableCell">Height</div>
-                          <div className="divTableCell">
-                            {" "}
-                            {Math.round(data.height * 3.9)}"
-                          </div>
-                        </div>
-                        <div className="divTableRow">
-                          <div className="divTableCell">Weight</div>
-                          <div className="divTableCell">
-                            {" "}
-                            {Math.round(data.weight / 4.3)} lbs
-                          </div>
-                        </div>
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else {  
+    return (
+      <StyledListItem onClick={handleClick}>
+        <img
+          alt="pokemon"
+          width="auto"
+          height="120px"
+          src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
+        />
+        <h2>{capitalise(item.name)}</h2>
+        <div></div>
+        <StyledModal isOpen={isOpen} onRequestClose={closeModal}>
+          <div>
+            {pokemonData.length > 0
+              ? pokemonData.map((data) => {
+                  return (
+                    <div key={data.id}>
+                      <h4>{capitalise(data.name)}</h4>
+                      {data.sprites ? (
+                        <img src={data.sprites["front_default"]} alt="sprite" />
+                      ) : (
+                        ""
+                      )}
+                      <div>
+                        <div><strong>Height: </strong>{Math.round(data.height * 3.9)}"</div>
                       </div>
+                      <div>
+                        <div><strong>Weight: </strong> {Math.round(data.weight / 4.3)} lbs</div>
+                      </div>
+                      <div>
+                        <div><strong>Type: </strong> {capitalise(data.types[0].type.name)}</div>
+                        <div>{data.types[1] ? capitalise(data.types[1].type.name) : null}</div>
+                      </div>
+                      <div><strong>Abilities: </strong>{capitalise(data.abilities[0].ability.name)}</div> 
+                      <div>{data.abilities[1] ? capitalise(data.abilities[1].ability.name) : null}</div>
                     </div>
-                  </div>
-                );
-              })
-            : null}
-        </div>
-      </StyledModal>
-    </StyledListItem>
-  );
+                  );
+                })
+              : null}
+          </div>
+        </StyledModal>
+      </StyledListItem>
+    );
+  }
 };
 
 export default ListItem;
