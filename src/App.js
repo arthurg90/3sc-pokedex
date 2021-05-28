@@ -1,15 +1,18 @@
 import "./App.css";
 import Header from "./components/Header";
 import PokeList from "./components/PokeList";
+import Search from "./components/Search";
 import { useEffect, useState } from "react";
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState('');
 
   const getPokemon = () => {
-    return fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+    const url = `https://pokeapi.co/api/v2/pokemon/?limit=151`;
+    return fetch(url)
       .then((res) => res.json())
       .then(
         (name) => {
@@ -27,6 +30,10 @@ function App() {
     getPokemon();
   }, []);
 
+  const searchResults = items.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -34,8 +41,9 @@ function App() {
   } else {
     return (
       <div className="App">
-        <Header text="Pokedex" />
-        <PokeList items={items} />
+        <Header />
+        <Search handleChange={(e) => setSearch(e.target.value)} />
+        <PokeList items={searchResults} />
       </div>
     );
   }
