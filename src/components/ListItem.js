@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
-import Modal from "react-modal";
 import styled from "styled-components";
+import Modal from "styled-react-modal";
+import Button from "react-bootstrap/Button";
 
 const StyledListItem = styled.div`
   margin: 2rem;
   width: 250px;
 `;
 
-Modal.setAppElement("#root");
+const StyledModal = Modal.styled`
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
 
 const ListItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,13 +75,15 @@ const ListItem = ({ item }) => {
       />
       <h2>{capitalise(item.name)}</h2>
       <div></div>
-      <Modal
+      <StyledModal
         isOpen={isOpen}
         onRequestClose={toggleModal}
         contentLabel="My dialog"
       >
         <div>
-          <button onClick={closeModal}>close</button>
+          <Button variant="primary" onClick={closeModal}>
+            x
+          </Button>
           {pokemonData.length > 0
             ? pokemonData.map((data) => {
                 return (
@@ -107,7 +117,7 @@ const ListItem = ({ item }) => {
               })
             : null}
         </div>
-      </Modal>
+      </StyledModal>
     </StyledListItem>
   );
 };

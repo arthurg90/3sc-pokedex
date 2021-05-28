@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import PokeList from "./components/PokeList";
 import Search from "./components/Search";
 import { useEffect, useState } from "react";
+import { ModalProvider } from "styled-react-modal";
 
 function App() {
   const [error, setError] = useState(null);
@@ -40,11 +41,13 @@ function App() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className="App">
-        <Header />
-        <Search handleChange={(e) => setSearch(e.target.value)} />
-        <PokeList items={searchResults} />
-      </div>
+      <ModalProvider>
+        <div className="App">
+          <Header />
+          <Search handleChange={(e) => setSearch(e.target.value)} />
+          <PokeList items={searchResults} />
+        </div>
+      </ModalProvider>
     );
   }
 }

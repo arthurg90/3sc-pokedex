@@ -24,7 +24,6 @@ Use React JS and [Pokemon API](https://pokeapi.co) to create an app that is (at 
 * You may use any additional JavaScript or CSS libraries to achieve your solution.
 
 ## Submission
-
 * The Submission must have version control history (.git directory) - this is essential so we can see how you went about implementing your solution.
 * Can be zipped up and sent to us via email or hosted on GitHub.
 * Please ensure that with your solution you include the following documentation (this can be included as part of a `README.md` or separate document)
