@@ -41,10 +41,10 @@ const PokeList = (props) => {
   const SaveComponent = props.saveComponent;
   return (
     <StyledList>
-      {props.items.map((item) => (
-        <PokemonContainer>
-          <ListItem key={item.name} item={item}></ListItem>
-          <Overlay>
+      {props.items.map((item, index) => (
+        <PokemonContainer key={index}>
+          <ListItem item={item}></ListItem>
+          <Overlay onClick={() => props.handleSavedClick(item)}>
             <SaveComponent />
           </Overlay>
         </PokemonContainer>

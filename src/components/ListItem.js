@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 
 const StyledListItem = styled.div`
   margin: 2rem;
-  width: 200px;
+  width: 250px;
   cursor: pointer;
 `;
 
@@ -67,7 +67,6 @@ const ListItem = ({ item }) => {
       .then(
         (data) => {
           toArray.push(data);
-          console.log(data);
           setPokemonData(toArray);
         },
         (error) => {
@@ -88,7 +87,7 @@ const ListItem = ({ item }) => {
           height="120px"
           src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
         />
-        <StyledModal isOpen={isOpen} onRequestClose={closeModal}>
+        <StyledModal isOpen={isOpen}>
           {pokemonData.length > 0
             ? pokemonData.map((data) => {
                 return (

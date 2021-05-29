@@ -1,16 +1,24 @@
 import "./App.css";
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { ModalProvider } from "styled-react-modal";
 import Header from "./components/Header";
 import PokeList from "./components/PokeList";
 import Search from "./components/Search";
-import { useEffect, useState } from "react";
-import { ModalProvider } from "styled-react-modal";
 import SavePokemon from "./components/SavePokemon";
+
+const StyledHeading = styled.h3`
+  color: darkgrey;
+  text-align: left;
+  margin-left: 7rem;
+`;
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
+  const [saved, setSaved] = useState([]);
 
   //Fetch API for all pokemon results
   const getPokemon = () => {
@@ -27,6 +35,14 @@ function App() {
           setError(error);
         }
       );
+  };
+
+  const addSavedPokemon = (item) => {
+    if (!saved.includes(item) === false) { //Check if an item is already in the saved state to avoid adding duplicates
+      return
+    }
+    const newSavedList = [...saved, item];
+    setSaved(newSavedList);
   };
 
   useEffect(() => {
@@ -47,7 +63,18 @@ function App() {
         <div className="App">
           <Header />
           <Search handleChange={(e) => setSearch(e.target.value)} />
-          <PokeList items={searchResults} saveComponent={SavePokemon} />
+          {saved.length > 0 ? (
+            <>
+              <StyledHeading>Saved:</StyledHeading>
+              <PokeList items={saved} saveComponent={SavePokemon} />
+            </>
+          ) : null}
+          <StyledHeading>Kanto Pokemon:</StyledHeading>
+          <PokeList
+            items={searchResults}
+            saveComponent={SavePokemon}
+            handleSavedClick={addSavedPokemon}
+          />
         </div>
       </ModalProvider>
     );
