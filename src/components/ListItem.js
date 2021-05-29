@@ -9,7 +9,7 @@ const StyledListItem = styled.div`
   cursor: pointer;
 `;
 
-const Title = styled.h3`
+const Title = styled.h5`
   margin-bottom: 2rem;
 `
 

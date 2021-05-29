@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 const SearchInput = styled.input`
-  display: block;
-  margin: 1rem auto;
-  width: 75%;
+  width: 25%;
   padding: 0.375rem 0.75rem;
+  margin-right: 2rem;
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
