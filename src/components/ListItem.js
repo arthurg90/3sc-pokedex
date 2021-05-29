@@ -17,12 +17,19 @@ const StyledModal = Modal.styled`
   border-style: solid;
   border-radius: 5%;
   width: 20rem;
-  height: 20rem;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: white;
   text-align: center;
+  padding-top: 1rem;
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const ListItem = ({ item }) => {
@@ -82,54 +89,55 @@ const ListItem = ({ item }) => {
           src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
         />
         <StyledModal isOpen={isOpen} onRequestClose={closeModal}>
-          <div>
-            {pokemonData.length > 0
-              ? pokemonData.map((data) => {
-                  return (
-                    <div key={data.id}>
-                      <h4>{capitalise(data.name)}</h4>
-                      {data.sprites ? (
-                        <img src={data.sprites["front_default"]} alt="sprite" />
-                      ) : (
-                        ""
-                      )}
+          {pokemonData.length > 0
+            ? pokemonData.map((data) => {
+                return (
+                  <div key={data.id}>
+                    <h4>{capitalise(data.name)}</h4>
+                    {data.sprites ? (
+                      <img src={data.sprites["front_default"]} alt="sprite" />
+                    ) : (
+                      ""
+                    )}
+                    <div>
                       <div>
-                        <div>
-                          <strong>Height: </strong>
-                          {Math.round(data.height * 3.9)}"
-                        </div>
+                        <strong>Height: </strong>
+                        {Math.round(data.height * 3.9)}"
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <strong>Weight: </strong>{" "}
+                        {Math.round(data.weight / 4.3)} lbs
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <strong>Type: </strong>{" "}
+                        {capitalise(data.types[0].type.name)}
                       </div>
                       <div>
-                        <div>
-                          <strong>Weight: </strong>{" "}
-                          {Math.round(data.weight / 4.3)} lbs
-                        </div>
-                      </div>
-                      <div>
-                        <div>
-                          <strong>Type: </strong>{" "}
-                          {capitalise(data.types[0].type.name)}
-                        </div>
-                        <div>
-                          {data.types[1]
-                            ? capitalise(data.types[1].type.name)
-                            : null}
-                        </div>
-                      </div>
-                      <div>
-                        <strong>Abilities: </strong>
-                        {capitalise(data.abilities[0].ability.name)}
-                      </div>
-                      <div>
-                        {data.abilities[1]
-                          ? capitalise(data.abilities[1].ability.name)
+                        {data.types[1]
+                          ? capitalise(data.types[1].type.name)
                           : null}
                       </div>
                     </div>
-                  );
-                })
-              : null}
-          </div>
+                    <div>
+                      <strong>Abilities: </strong>
+                      {capitalise(data.abilities[0].ability.name)}
+                    </div>
+                    <div>
+                      {data.abilities[1]
+                        ? capitalise(data.abilities[1].ability.name)
+                        : null}
+                    </div>
+                    <StyledButton variant="danger" onClick={closeModal}>
+                      Close
+                    </StyledButton>
+                  </div>
+                );
+              })
+            : null}
         </StyledModal>
       </StyledListItem>
     );
