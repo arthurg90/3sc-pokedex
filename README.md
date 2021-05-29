@@ -1,6 +1,9 @@
 ### 3SC Pokedex App
 
 Coding task submission for 3 Sided Cube
+
+<img width="1354" alt="Screenshot 2021-05-29 at 22 19 35" src="https://user-images.githubusercontent.com/32075763/120085087-2ebe8a80-c0cd-11eb-91b0-7af32410e8a3.png">
+
 ## Getting Started
 * Clone the git project into a directory of your choice
   ```bash
