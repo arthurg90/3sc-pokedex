@@ -54,10 +54,9 @@ function App() {
   };
 
   const addSavedPokemon = (item) => {
-    if (!saved.includes(item) === false) { //Check if an item is already in the saved state to avoid adding duplicates
-      return
-    }
-    const newSavedList = [...saved, item];
+    // Check if an item is already in the saved state to avoid adding duplicates
+    let prevSaved = saved.filter((saved) => saved.name !== item.name);
+    const newSavedList = [...prevSaved, item];
     setSaved(newSavedList);
     saveToLocalStorage(newSavedList);
   };
