@@ -3,7 +3,7 @@ import styled from "styled-components";
 const SearchInput = styled.input`
   display: block;
   margin: 1rem auto;
-  width: 80%;
+  width: 75%;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
@@ -15,6 +15,7 @@ const SearchInput = styled.input`
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 `;
 
+//Search bar input
 const Search = ({handleChange}) => {
   return (
     <SearchInput

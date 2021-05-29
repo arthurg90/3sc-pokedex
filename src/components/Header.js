@@ -8,6 +8,7 @@ const Image = styled.img`
   margin-bottom: 1rem;
 `;
 
+//Logo and Header banner
 const Header = (props) => {
   return (
     <header className="App-header">

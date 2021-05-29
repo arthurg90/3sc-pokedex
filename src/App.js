@@ -4,6 +4,7 @@ import PokeList from "./components/PokeList";
 import Search from "./components/Search";
 import { useEffect, useState } from "react";
 import { ModalProvider } from "styled-react-modal";
+import SavePokemon from "./components/SavePokemon";
 
 function App() {
   const [error, setError] = useState(null);
@@ -11,6 +12,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
 
+  //Fetch API for all pokemon results
   const getPokemon = () => {
     const url = `https://pokeapi.co/api/v2/pokemon/?limit=151`;
     return fetch(url)
@@ -45,7 +47,7 @@ function App() {
         <div className="App">
           <Header />
           <Search handleChange={(e) => setSearch(e.target.value)} />
-          <PokeList items={searchResults} />
+          <PokeList items={searchResults} saveComponent={SavePokemon} />
         </div>
       </ModalProvider>
     );

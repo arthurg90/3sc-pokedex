@@ -36,14 +36,16 @@ const PokemonContainer = styled.div`
   }
 `;
 
+//Pokemon list to display all pokemon on the page
 const PokeList = (props) => {
+  const SaveComponent = props.saveComponent;
   return (
     <StyledList>
       {props.items.map((item) => (
         <PokemonContainer>
           <ListItem key={item.name} item={item}></ListItem>
           <Overlay>
-            Save Pokemon
+            <SaveComponent />
           </Overlay>
         </PokemonContainer>
       ))}
