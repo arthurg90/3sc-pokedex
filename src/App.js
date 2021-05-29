@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import PokeList from "./components/PokeList";
 import Search from "./components/Search";
 import SavePokemon from "./components/SavePokemon";
+import RemovePokemon from "./components/RemovePokemon";
 
 const StyledHeading = styled.h3`
   color: darkgrey;
@@ -45,6 +46,13 @@ function App() {
     setSaved(newSavedList);
   };
 
+  const removeSavedPokemon = (item) => {
+    const newSavedList = saved.filter(
+      (saved) => saved.name !== item.name
+    );
+    setSaved(newSavedList);
+  };
+
   useEffect(() => {
     getPokemon();
   }, []);
@@ -66,7 +74,11 @@ function App() {
           {saved.length > 0 ? (
             <>
               <StyledHeading>Saved:</StyledHeading>
-              <PokeList items={saved} saveComponent={SavePokemon} />
+              <PokeList
+                items={saved}
+                saveComponent={RemovePokemon}
+                handleSavedClick={removeSavedPokemon}
+              />
             </>
           ) : null}
           <StyledHeading>Kanto Pokemon:</StyledHeading>
