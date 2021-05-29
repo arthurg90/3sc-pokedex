@@ -30,7 +30,8 @@ This is a single page app which uses [PokeAPI](https://pokeapi.co/) to display, 
 cd src/tests
 yarn test
 ```  
-* The above will run the tests present in the directory
+* The above will run the tests present in the directory using Jest JS library
+* The App was tested in Chrome/Safari/Firefox web browsers
 
 ## Q & A 
 * If you used any particular libraries why did you choose them?
