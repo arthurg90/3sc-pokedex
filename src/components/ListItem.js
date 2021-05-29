@@ -5,11 +5,17 @@ import Button from "react-bootstrap/Button";
 
 const StyledListItem = styled.div`
   margin: 2rem;
-  width: 250px;
+  width: 200px;
+  cursor: pointer;
 `;
+
+const Title = styled.h3`
+  margin-bottom: 2rem;
+`
 
 const StyledModal = Modal.styled`
   border-style: solid;
+  border-radius: 5%;
   width: 20rem;
   height: 20rem;
   display: flex;
@@ -68,14 +74,13 @@ const ListItem = ({ item }) => {
   } else {  
     return (
       <StyledListItem onClick={handleClick}>
+        <Title>{capitalise(item.name)}</Title>
         <img
           alt="pokemon"
           width="auto"
           height="120px"
           src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
         />
-        <h2>{capitalise(item.name)}</h2>
-        <div></div>
         <StyledModal isOpen={isOpen} onRequestClose={closeModal}>
           <div>
             {pokemonData.length > 0
@@ -89,17 +94,37 @@ const ListItem = ({ item }) => {
                         ""
                       )}
                       <div>
-                        <div><strong>Height: </strong>{Math.round(data.height * 3.9)}"</div>
+                        <div>
+                          <strong>Height: </strong>
+                          {Math.round(data.height * 3.9)}"
+                        </div>
                       </div>
                       <div>
-                        <div><strong>Weight: </strong> {Math.round(data.weight / 4.3)} lbs</div>
+                        <div>
+                          <strong>Weight: </strong>{" "}
+                          {Math.round(data.weight / 4.3)} lbs
+                        </div>
                       </div>
                       <div>
-                        <div><strong>Type: </strong> {capitalise(data.types[0].type.name)}</div>
-                        <div>{data.types[1] ? capitalise(data.types[1].type.name) : null}</div>
+                        <div>
+                          <strong>Type: </strong>{" "}
+                          {capitalise(data.types[0].type.name)}
+                        </div>
+                        <div>
+                          {data.types[1]
+                            ? capitalise(data.types[1].type.name)
+                            : null}
+                        </div>
                       </div>
-                      <div><strong>Abilities: </strong>{capitalise(data.abilities[0].ability.name)}</div> 
-                      <div>{data.abilities[1] ? capitalise(data.abilities[1].ability.name) : null}</div>
+                      <div>
+                        <strong>Abilities: </strong>
+                        {capitalise(data.abilities[0].ability.name)}
+                      </div>
+                      <div>
+                        {data.abilities[1]
+                          ? capitalise(data.abilities[1].ability.name)
+                          : null}
+                      </div>
                     </div>
                   );
                 })

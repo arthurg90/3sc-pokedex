@@ -7,11 +7,45 @@ const StyledList = styled.div`
   justify-content: center;
 `;
 
+const Overlay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  bottom: 0;
+  font-size: 16px;
+  padding: 20px;
+  text-align: center;
+`;
+
+const PokemonContainer = styled.div`
+  position: relative;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:hover {
+    ${Overlay} {
+      opacity: 1;
+      color: white;
+    }
+  }
+`;
+
 const PokeList = (props) => {
   return (
     <StyledList>
       {props.items.map((item) => (
-        <ListItem key={item.name} item={item} ></ListItem>
+        <PokemonContainer>
+          <ListItem key={item.name} item={item}></ListItem>
+          <Overlay>
+            Save Pokemon
+          </Overlay>
+        </PokemonContainer>
       ))}
     </StyledList>
   );
