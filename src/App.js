@@ -38,12 +38,28 @@ function App() {
       );
   };
 
+  useEffect(() => {
+    getPokemon();
+  }, []);
+
+  useEffect(() => {
+    const savedPokemon = JSON.parse(
+      localStorage.getItem("saved-pokemon")
+    );
+    setSaved(savedPokemon);
+  }, []);
+
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem("saved-pokemon", JSON.stringify(items));
+  };
+
   const addSavedPokemon = (item) => {
     if (!saved.includes(item) === false) { //Check if an item is already in the saved state to avoid adding duplicates
       return
     }
     const newSavedList = [...saved, item];
     setSaved(newSavedList);
+    saveToLocalStorage(newSavedList);
   };
 
   const removeSavedPokemon = (item) => {
@@ -51,11 +67,8 @@ function App() {
       (saved) => saved.name !== item.name
     );
     setSaved(newSavedList);
+    saveToLocalStorage(newSavedList);
   };
-
-  useEffect(() => {
-    getPokemon();
-  }, []);
 
   const searchResults = items.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(search.toLowerCase())
@@ -71,7 +84,7 @@ function App() {
         <div className="App">
           <Header />
           <Search handleChange={(e) => setSearch(e.target.value)} />
-          {saved.length > 0 ? (
+          {saved && saved.length > 0 ? (
             <>
               <StyledHeading>Saved:</StyledHeading>
               <PokeList
