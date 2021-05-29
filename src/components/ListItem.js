@@ -16,7 +16,7 @@ const Title = styled.h5`
 const StyledModal = Modal.styled`
   border-style: solid;
   border-radius: 5%;
-  width: 20rem;
+  width: 400px;
   height: auto;
   display: flex;
   align-items: center;
@@ -24,12 +24,11 @@ const StyledModal = Modal.styled`
   flex-direction: column;
   background-color: white;
   text-align: center;
-  padding-top: 1rem;
+  padding: 2rem;
 `;
 
 const StyledButton = styled(Button)`
   margin-top: 1rem;
-  margin-bottom: 1rem;
 `;
 
 const ListItem = ({ item }) => {

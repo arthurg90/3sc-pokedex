@@ -1,34 +1,47 @@
 ### 3SC Pokedex App
 
-This is a Front end developer task for 3 Sided Cube.
-
-Use React JS and [Pokemon API](https://pokeapi.co) to create an app that is (at the minimum):
-
-* Readable and well laid out code
-* A well laid out project structure
-* JS or TypeScript / HTML and CSS
-* Component / Unit and Snapshot Tests (Where Appropriate)
-* Clear Documentation about the project
-
-## User Stories
-* "As a user I want to view and easily find pokemon so that I can easily explore the many pokemon that exist"
-* "As a user I want to filter pokemon by their [generation](https://pokeapi.co/docs/v2#generations) so that I can find pokemon I am interested in"
-* "As a user I want to preview in detail a pokemon so that I can find out all the information around that particular pokemon"
-* "As a user I want to compare pokemon so that I can decide if one is better over the other"
-* "As a user I want to save my favourite pokemon so that I can easily find them next time I visit the application"
-
+Coding task submission for 3 Sided Cube
 ## Getting Started
-* The following endpoint provides a list of Pokemon: https://pokeapi.co/api/v2/pokemon/
-* You may use any other endpoints and resources provided by the Pokeapi to achieve the user stories.
-* Your solution should demonstrate use of version control (git).
-* You may use any additional JavaScript or CSS libraries to achieve your solution.
+* Clone the git project into a directory of your choice
+  ```bash
+  git clone https://github.com/arthurg90/3sc-pokedex.git
+  cd 3sc-pokedex
+  npm install
+  npm start
+  ```  
+* App should open up in http://localhost:3000/
+## Usage
+This is a single page app which uses [PokeAPI](https://pokeapi.co/) to display, search and save pokemon. 
+* The app will load the 1st generation "Kanto" pokemon by default
+* Use the dropdown select to choose a generation (up to 8), the pokemon list will update accordingly
+* Use the search bar to search for specific pokemon
+* The search will only cover the selected generation of pokemon
+* Clicking on each pokemon will bring up a pop-up modal displaying detailed info for each pokemon
+* Hovering over a pokemon will bring up an option to "Save Pokemon"
+* Saved Pokemon will appear at the top of the page
+* Saved Pokemon will persist on each page reload
+* You can remove saved Pokemon from the saved list by hovering over it and clicking "Remove Pokemon"
 
-## Submission
-* The Submission must have version control history (.git directory) - this is essential so we can see how you went about implementing your solution.
-* Can be zipped up and sent to us via email or hosted on GitHub.
-* Please ensure that with your solution you include the following documentation (this can be included as part of a `README.md` or separate document)
-* A brief "Getting Started guide" on how to open the project locally
+## Testing
+```bash
+cd src/tests
+yarn test
+```  
+* The above will run the tests present in the directory
+
+## Q & A 
 * If you used any particular libraries why did you choose them?
+  * I used primarily `React` with Hooks for state management because this was a fairly simple app, for a more complex app and data structures I would use `Redux` to deal with state
+  * I used `styled-components` for the majority of the styling as I believe it to be a quick and efficient way to add styles within Components and use props (where needed) in the future
+  * For modals I used `react-modal` and `styled-react-modal` to work with the styled components.
+  * For testing I used `jest` and `enzyme` as they are compatible/built for react
 * Did you have any challenges and if so, how did you overcome them?
+  * The main challenge for me was to ensure that the saving, removing pokemon feature worked reliably. I overcame this by including some filtering logic when handling adding/removing pokemon to the saved state.
+  * Another challenge was to make sure the saved Pokemon persisted on reload of the page, I overcame this by used Chrome dev tools to test that the localStorage was saving the saved items.
 * Did you add any extra features?
+  * I added visual cues for the old school gameboy-style fonts and to make the Header look like a Pokedex console.
 * If you had more time, what else would you implement?
+  * I would add better type checking i.e. `TypeScript`
+  * I would include more filtering options e.g. filter by Type
+  * I would include more details for each Pokemon, depending on what was relevant for the user
+  * A better way to compare each pokemon side-by-side
