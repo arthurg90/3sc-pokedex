@@ -1,6 +1,6 @@
 ### 3SC Pokedex App
 
-Coding task submission for 3 Sided Cube
+Coding task submission for 3 Sided Cube. This is a web app which allows user to interface with the [PokeAPI](https://pokeapi.co/) for finding and displaying Pokemon.
 
 <img width="1354" alt="Screenshot 2021-05-29 at 22 19 35" src="https://user-images.githubusercontent.com/32075763/120085087-2ebe8a80-c0cd-11eb-91b0-7af32410e8a3.png">
 
