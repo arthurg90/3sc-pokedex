@@ -52,7 +52,7 @@ function App() {
   const [generation, setGeneration] = useState(1);
 
   //Fetch API for all pokemon results
-  const getPokemon = (generation) => {
+  const getPokemon = (generation: number) => {
     const url = `https://pokeapi.co/api/v2/generation/${generation}/`;
     return fetch(url)
       .then((res) => res.json())
