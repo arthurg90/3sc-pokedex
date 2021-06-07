@@ -1,6 +1,6 @@
 import "./App.css";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { ReactEventHandler, useEffect, useState } from "react";
 import { ModalProvider } from "styled-react-modal";
 import Header from "./components/Header";
 import PokeList from "./components/PokeList";
@@ -43,13 +43,18 @@ const Select = styled.select`
   border-radius: 0.25rem;
 `;
 
+interface PokeData {
+  search: string;
+  generation: number;
+}
+
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
   const [saved, setSaved] = useState([]);
-  const [generation, setGeneration] = useState(1);
+  const [generation, setGeneration] = useState<PokeData>(1);
 
   //Fetch API for all pokemon results
   const getPokemon = (generation: number) => {
@@ -72,7 +77,7 @@ function App() {
     getPokemon(generation);
   }, [generation]);
 
-  function handleSelect(e) {
+  function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
     setGeneration(e.target.value);
   }
 
@@ -89,7 +94,7 @@ function App() {
 
   const addSavedPokemon = (item) => {
     // Check if an item is already in the saved state to avoid adding duplicates
-    let prevSaved = saved.filter((saved) => saved.name !== item.name);
+    const prevSaved = saved.filter((saved) => saved.name !== item.name);
     const newSavedList = [...prevSaved, item];
     setSaved(newSavedList);
     saveToLocalStorage(newSavedList);
