@@ -1,6 +1,9 @@
-### 3SC Pokedex App
+### Pokedex App
 
-Coding task submission for 3 Sided Cube
+This is a web app which allows user to interface with the [PokeAPI](https://pokeapi.co/) for finding and displaying Pokemon.
+
+<img width="1354" alt="Screenshot 2021-05-29 at 22 19 35" src="https://user-images.githubusercontent.com/32075763/120085087-2ebe8a80-c0cd-11eb-91b0-7af32410e8a3.png">
+
 ## Getting Started
 * Clone the git project into a directory of your choice
   ```bash
@@ -27,7 +30,8 @@ This is a single page app which uses [PokeAPI](https://pokeapi.co/) to display, 
 cd src/tests
 yarn test
 ```  
-* The above will run the tests present in the directory
+* The above will run the tests present in the directory using Jest JS library
+* The App was tested in Chrome/Safari/Firefox web browsers
 
 ## Q & A 
 * If you used any particular libraries why did you choose them?
