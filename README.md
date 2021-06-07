@@ -33,19 +33,3 @@ yarn test
 * The above will run the tests present in the directory using Jest JS library
 * The App was tested in Chrome/Safari/Firefox web browsers
 
-## Q & A 
-* If you used any particular libraries why did you choose them?
-  * I used primarily `React` with Hooks for state management because this was a fairly simple app, for a more complex app and data structures I would use `Redux` to deal with state
-  * I used `styled-components` for the majority of the styling as I believe it to be a quick and efficient way to add styles within Components and use props (where needed) in the future
-  * For modals I used `react-modal` and `styled-react-modal` to work with the styled components.
-  * For testing I used `jest` and `enzyme` as they are compatible/built for react
-* Did you have any challenges and if so, how did you overcome them?
-  * The main challenge for me was to ensure that the saving, removing pokemon feature worked reliably. I overcame this by including some filtering logic when handling adding/removing pokemon to the saved state.
-  * Another challenge was to make sure the saved Pokemon persisted on reload of the page, I overcame this by used Chrome dev tools to test that the localStorage was saving the saved items.
-* Did you add any extra features?
-  * I added visual cues for the old school gameboy-style fonts and to make the Header look like a Pokedex console.
-* If you had more time, what else would you implement?
-  * I would add better type checking i.e. `TypeScript`
-  * I would include more filtering options e.g. filter by Type
-  * I would include more details for each Pokemon, depending on what was relevant for the user
-  * A better way to compare each pokemon side-by-side
