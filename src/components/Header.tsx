@@ -61,6 +61,7 @@ const GreenCircle = styled(MiniCircle)`
 `;
 
 //Logo and Header banner
+  // @ts-ignore
 const Header = (props) => {
   return (
     <StyledHeader>

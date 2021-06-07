@@ -3,6 +3,9 @@
     "parserOptions": {
         "ecmaVersion": 2021
     },
+    "rules": { 
+        "@typescript-eslint/ban-ts-comment": "off"
+     },
     "extends": [
         "plugin:@typescript-eslint/recommended",
         "prettier"
