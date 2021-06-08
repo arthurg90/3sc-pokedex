@@ -42,9 +42,10 @@ const Select = styled.select`
   border-radius: 0.25rem;
 `;
 
-interface PokeData {
-  generation: string;
-}
+// interface PokeData {
+//   generation: number;
+//   saved: Array<string>;
+// }
 
 function App() {
   const [error, setError] = useState(null);
@@ -52,10 +53,10 @@ function App() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
   const [saved, setSaved] = useState([]);
-  const [generation, setGeneration] = useState<PokeData>({generation: '1'});
+  const [generation, setGeneration] = useState(1);
 
   //Fetch API for all pokemon results
-  const getPokemon = (generation: PokeData) => {
+  const getPokemon = (generation: number) => {
     const url = `https://pokeapi.co/api/v2/generation/${generation}/`;
     return fetch(url)
       .then((res) => res.json())
@@ -75,39 +76,27 @@ function App() {
     getPokemon(generation);
   }, [generation]);
 
-  // function handleSelect(e: React.ChangeEvent<HTMLInputElement>, value: string): void => {
-  //   const newValue = e.currentTarget.value;
-  //   setGeneration(newValue);
-  // }
+  const saveToLocalStorage = (items: string) => {
+    localStorage.setItem("saved-pokemon", JSON.stringify(items));
+  };
 
-  // @ts-ignore
+  const addSavedPokemon = (item: string, saved: Array<string>) => {
+    // Check if an item is already in the saved state to avoid adding duplicates
+    const prevSaved = saved.filter(saved => saved.name !== item.name);
+    const newSavedList = [...prevSaved, item];
+    setSaved(newSavedList);
+    saveToLocalStorage(newSavedList);
+  };
 
   useEffect(() => {
     const savedPokemon = JSON.parse(
-    // @ts-ignore
       localStorage.getItem("saved-pokemon")
     );
     setSaved(savedPokemon);
   }, []);
-
-  // @ts-ignore
-  const saveToLocalStorage = (items) => {
-    localStorage.setItem("saved-pokemon", JSON.stringify(items));
-  };
-  // @ts-ignore
-  const addSavedPokemon = (item) => {
-    // Check if an item is already in the saved state to avoid adding duplicates
-  // @ts-ignore
-    const prevSaved = saved.filter((saved) => saved.name !== item.name);
-    const newSavedList = [...prevSaved, item];
-  // @ts-ignore
-    setSaved(newSavedList);
-    saveToLocalStorage(newSavedList);
-  };
-  // @ts-ignore
+  
   const removeSavedPokemon = (item) => {
     const newSavedList = saved.filter(
-  // @ts-ignore
       (saved) => saved.name !== item.name
     );
     setSaved(newSavedList);
@@ -115,12 +104,10 @@ function App() {
   };
 
   const searchResults = items.filter((pokemon) =>
-  // @ts-ignore
     pokemon.name.toLowerCase().includes(search.toLowerCase())
   );
 
   if (error) {
-  // @ts-ignore
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
@@ -133,10 +120,8 @@ function App() {
             <SelectContainer>
               <label htmlFor="gen-select"><strong>Choose a generation:</strong></label>
               <Select
-  // @ts-ignore
                 value={generation}
                 id="gen-select"
-  // @ts-ignore
                 onChange={(e) => setGeneration(e.target.value)}
               >
                 <option value="1">1</option>
@@ -149,7 +134,6 @@ function App() {
                 <option value="8">8</option>
               </Select>
             </SelectContainer>
-  {/* @ts-ignore */}
             <Search handleChange={(e) => setSearch(e.target.value)} />
           </InputContainer>
           {saved && saved.length > 0 ? (
