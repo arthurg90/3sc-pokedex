@@ -1,4 +1,4 @@
-const RemovePokemon = () => {
+const RemovePokemon: React.FC = () => {
   return (
     <>
       <span className="mr-2">Remove Pokemon</span>

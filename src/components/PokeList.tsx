@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import ListItem from "./ListItem";
+import styled from 'styled-components';
+import ListItem from './ListItem';
 
 const StyledList = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const PokemonContainer = styled.div`
 `;
 
 //Pokemon list to display all pokemon on the page
-const PokeList = (props) => {
+const PokeList: React.FC = (props) => {
   const SaveComponent = props.saveComponent;
   return (
     <StyledList>

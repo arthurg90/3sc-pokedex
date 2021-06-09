@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import logo from "../images/logo.png";
+import styled from 'styled-components';
+import logo from '../images/logo.png';
 
 const Image = styled.img`
   width: auto;
@@ -19,8 +19,8 @@ const StyledHeader = styled.header`
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  -webkit-box-shadow: 5px 10px 0px 5px #77000A; 
-  box-shadow: 5px 10px 0px 5px #77000A;
+  -webkit-box-shadow: 5px 10px 0px 5px #77000a;
+  box-shadow: 5px 10px 0px 5px #77000a;
 `;
 
 const CircleContainer = styled.div`
@@ -61,8 +61,7 @@ const GreenCircle = styled(MiniCircle)`
 `;
 
 //Logo and Header banner
-  // @ts-ignore
-const Header = (props) => {
+const Header: React.FC = () => {
   return (
     <StyledHeader>
       <CircleContainer>

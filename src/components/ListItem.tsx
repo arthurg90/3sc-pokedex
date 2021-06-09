@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import Modal from "styled-react-modal";
-import Button from "react-bootstrap/Button";
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Modal from 'styled-react-modal';
+import Button from 'react-bootstrap/Button';
 
 const StyledListItem = styled.div`
   margin: 2rem;
@@ -11,7 +11,7 @@ const StyledListItem = styled.div`
 
 const Title = styled.h5`
   margin-bottom: 2rem;
-`
+`;
 
 const StyledModal = Modal.styled`
   border-style: solid;
@@ -31,9 +31,9 @@ const StyledButton = styled(Button)`
   margin-top: 1rem;
 `;
 
-const ListItem = ({ item }) => {
+const ListItem: React.FC = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pokemon, setPokemon] = useState("");
+  const [pokemon, setPokemon] = useState('');
   const [pokemonData, setPokemonData] = useState([]);
   const [error, setError] = useState(null);
 
@@ -76,7 +76,7 @@ const ListItem = ({ item }) => {
 
   if (error) {
     return <div>Error: {error.message}</div>;
-  } else {  
+  } else {
     return (
       <StyledListItem onClick={handleClick}>
         <Title>{capitalise(item.name)}</Title>
@@ -93,9 +93,9 @@ const ListItem = ({ item }) => {
                   <div key={data.id}>
                     <h4>{capitalise(data.name)}</h4>
                     {data.sprites ? (
-                      <img src={data.sprites["front_default"]} alt="sprite" />
+                      <img src={data.sprites['front_default']} alt="sprite" />
                     ) : (
-                      ""
+                      ''
                     )}
                     <div>
                       <div>
@@ -105,13 +105,13 @@ const ListItem = ({ item }) => {
                     </div>
                     <div>
                       <div>
-                        <strong>Weight: </strong>{" "}
+                        <strong>Weight: </strong>{' '}
                         {Math.round(data.weight / 4.3)} lbs
                       </div>
                     </div>
                     <div>
                       <div>
-                        <strong>Type: </strong>{" "}
+                        <strong>Type: </strong>{' '}
                         {capitalise(data.types[0].type.name)}
                       </div>
                       <div>

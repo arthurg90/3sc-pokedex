@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const SearchInput = styled.input`
   width: 25%;
@@ -15,7 +15,7 @@ const SearchInput = styled.input`
 `;
 
 //Search bar input
-const Search = ({handleChange}) => {
+const Search: React.FC = ({ handleChange }) => {
   return (
     <SearchInput
       type="search"

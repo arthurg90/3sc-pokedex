@@ -1,4 +1,4 @@
-const SavePokemon = () => {
+const SavePokemon: React.FC = () => {
   return (
     <>
       <span className="mr-2">Save Pokemon</span>

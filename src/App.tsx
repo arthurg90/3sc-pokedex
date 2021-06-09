@@ -1,12 +1,12 @@
-import "./App.css";
-import styled from "styled-components";
-import { ReactEventHandler, useEffect, useState } from "react";
-import { ModalProvider } from "styled-react-modal";
-import Header from "./components/Header";
-import PokeList from "./components/PokeList";
-import Search from "./components/Search";
-import SavePokemon from "./components/SavePokemon";
-import RemovePokemon from "./components/RemovePokemon";
+import './App.css';
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { ModalProvider } from 'styled-react-modal';
+import Header from './components/Header';
+import PokeList from './components/PokeList';
+import Search from './components/Search';
+import SavePokemon from './components/SavePokemon';
+import RemovePokemon from './components/RemovePokemon';
 const StyledHeading = styled.h4`
   color: darkgrey;
   text-align: left;
@@ -33,7 +33,7 @@ const Select = styled.select`
   background-color: #fff;
   background-image: url(
     data:image/svg + xml,
-    %3csvgxmlns="http://www.w3.org/2000/svg"viewBox="0 0 16 16"%3e%3cpathfill="none"stroke="%23343a40"stroke-linecap="round"stroke-linejoin="round"stroke-width="2"d="M2 5l6 6 6-6"/%3e%3c/svg%3e
+    %3csvgxmlns='http://www.w3.org/2000/svg'viewBox='0 0 16 16'%3e%3cpathfill='none'stroke='%23343a40'stroke-linecap='round'stroke-linejoin='round'stroke-width='2'd='M2 5l6 6 6-6'/%3e%3c/svg%3e
   );
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
@@ -42,12 +42,17 @@ const Select = styled.select`
   border-radius: 0.25rem;
 `;
 
-// interface PokeData {
-//   generation: number;
-//   saved: Array<string>;
-// }
+type save = {
+  id: string;
+  name: string;
+};
 
-function App() {
+interface PokeProps {
+  generation: number;
+  saved: Array<save>;
+}
+
+function App(): React.FC<PokeProps> {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -63,7 +68,7 @@ function App() {
       .then(
         (name) => {
           setIsLoaded(true);
-          setItems(name.pokemon_species)
+          setItems(name.pokemon_species);
         },
         (error) => {
           setIsLoaded(true);
@@ -77,28 +82,24 @@ function App() {
   }, [generation]);
 
   const saveToLocalStorage = (items: string) => {
-    localStorage.setItem("saved-pokemon", JSON.stringify(items));
+    localStorage.setItem('saved-pokemon', JSON.stringify(items));
   };
 
-  const addSavedPokemon = (item: string, saved: Array<string>) => {
+  const addSavedPokemon = (item: string, saved: Array<save>) => {
     // Check if an item is already in the saved state to avoid adding duplicates
-    const prevSaved = saved.filter(saved => saved.name !== item.name);
+    const prevSaved = saved.filter((s) => s.name !== item.name);
     const newSavedList = [...prevSaved, item];
     setSaved(newSavedList);
     saveToLocalStorage(newSavedList);
   };
 
   useEffect(() => {
-    const savedPokemon = JSON.parse(
-      localStorage.getItem("saved-pokemon")
-    );
+    const savedPokemon = JSON.parse(localStorage.getItem('saved-pokemon'));
     setSaved(savedPokemon);
   }, []);
-  
+
   const removeSavedPokemon = (item) => {
-    const newSavedList = saved.filter(
-      (saved) => saved.name !== item.name
-    );
+    const newSavedList = saved.filter((s) => s.name !== item.name);
     setSaved(newSavedList);
     saveToLocalStorage(newSavedList);
   };
@@ -118,7 +119,9 @@ function App() {
           <Header />
           <InputContainer>
             <SelectContainer>
-              <label htmlFor="gen-select"><strong>Choose a generation:</strong></label>
+              <label htmlFor="gen-select">
+                <strong>Choose a generation:</strong>
+              </label>
               <Select
                 value={generation}
                 id="gen-select"
