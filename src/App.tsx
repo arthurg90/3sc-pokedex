@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { ModalProvider } from 'styled-react-modal';
 import Header from './components/Header';
-import PokeList from './components/PokeList';
+// import PokeList from './components/PokeList';
 import Search from './components/Search';
-import SavePokemon from './components/SavePokemon';
-import RemovePokemon from './components/RemovePokemon';
+// import SavePokemon from './components/SavePokemon';
+// import RemovePokemon from './components/RemovePokemon';
+
 const StyledHeading = styled.h4`
   color: darkgrey;
   text-align: left;
@@ -42,123 +43,131 @@ const Select = styled.select`
   border-radius: 0.25rem;
 `;
 
-type save = {
-  id: string;
-  name: string;
-};
+// type save = {
+//   id: string;
+//   name: string;
+// };
 
-interface PokeProps {
-  generation: number;
-  saved: Array<save>;
-}
+// interface PokeProps {
+//   generation: number;
+//   saved: Array<save>;
+// }
 
-function App(): React.FC<PokeProps> {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+function App() {
+  // const [error, setError] = useState(null);
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
-  const [saved, setSaved] = useState([]);
-  const [generation, setGeneration] = useState(1);
+  // const [saved, setSaved] = useState([]);
+  const [generation, setGeneration] = useState<string>('1');
 
   //Fetch API for all pokemon results
-  const getPokemon = (generation: number) => {
-    const url = `https://pokeapi.co/api/v2/generation/${generation}/`;
-    return fetch(url)
-      .then((res) => res.json())
-      .then(
-        (name) => {
-          setIsLoaded(true);
-          setItems(name.pokemon_species);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  };
+  // const getPokemon = (generation: number) => {
+  //   const url = `https://pokeapi.co/api/v2/generation/${generation}/`;
+  //   return fetch(url)
+  //     .then((res) => res.json())
+  //     .then(
+  //       (name) => {
+  //         setIsLoaded(true);
+  //         setItems(name.pokemon_species);
+  //       },
+  //       (error) => {
+  //         setIsLoaded(true);
+  //         setError(error);
+  //       }
+  //     );
+  // };
 
-  useEffect(() => {
-    getPokemon(generation);
-  }, [generation]);
+  // useEffect(() => {
+  //   getPokemon(generation);
+  // }, [generation]);
 
-  const saveToLocalStorage = (items: string) => {
-    localStorage.setItem('saved-pokemon', JSON.stringify(items));
-  };
+  // const saveToLocalStorage = (items: string) => {
+  //   localStorage.setItem('saved-pokemon', JSON.stringify(items));
+  // };
 
-  const addSavedPokemon = (item: string, saved: Array<save>) => {
-    // Check if an item is already in the saved state to avoid adding duplicates
-    const prevSaved = saved.filter((s) => s.name !== item.name);
-    const newSavedList = [...prevSaved, item];
-    setSaved(newSavedList);
-    saveToLocalStorage(newSavedList);
-  };
+  // const addSavedPokemon = (item: string, saved: Array<save>) => {
+  //   // Check if an item is already in the saved state to avoid adding duplicates
+  //   const prevSaved = saved.filter((s) => s.name !== item.name);
+  //   const newSavedList = [...prevSaved, item];
+  //   setSaved(newSavedList);
+  //   saveToLocalStorage(newSavedList);
+  // };
 
-  useEffect(() => {
-    const savedPokemon = JSON.parse(localStorage.getItem('saved-pokemon'));
-    setSaved(savedPokemon);
-  }, []);
+  // useEffect(() => {
+  //   const savedPokemon = JSON.parse(localStorage.getItem('saved-pokemon'));
+  //   setSaved(savedPokemon);
+  // }, []);
 
-  const removeSavedPokemon = (item) => {
-    const newSavedList = saved.filter((s) => s.name !== item.name);
-    setSaved(newSavedList);
-    saveToLocalStorage(newSavedList);
-  };
+  // const removeSavedPokemon = (item) => {
+  //   const newSavedList = saved.filter((s) => s.name !== item.name);
+  //   setSaved(newSavedList);
+  //   saveToLocalStorage(newSavedList);
+  // };
 
-  const searchResults = items.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // const searchResults = items.filter((pokemon) =>
+  //   pokemon.name.toLowerCase().includes(search.toLowerCase())
+  // );
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <ModalProvider>
-        <div className="App">
-          <Header />
-          <InputContainer>
-            <SelectContainer>
-              <label htmlFor="gen-select">
-                <strong>Choose a generation:</strong>
-              </label>
-              <Select
-                value={generation}
-                id="gen-select"
-                onChange={(e) => setGeneration(e.target.value)}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-              </Select>
-            </SelectContainer>
-            <Search handleChange={(e) => setSearch(e.target.value)} />
-          </InputContainer>
-          {saved && saved.length > 0 ? (
-            <>
-              <StyledHeading>Saved Pokemon</StyledHeading>
-              <PokeList
-                items={saved}
-                saveComponent={RemovePokemon}
-                handleSavedClick={removeSavedPokemon}
-              />
-            </>
-          ) : null}
-          <StyledHeading>Gen {generation} Pokemon</StyledHeading>
-          <PokeList
-            items={searchResults}
-            saveComponent={SavePokemon}
-            handleSavedClick={addSavedPokemon}
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // } else if (!isLoaded) {
+  //   return <div>Loading...</div>;
+  // } else {
+  return (
+    <ModalProvider>
+      <div className="App">
+        <Header />
+        <InputContainer>
+          <SelectContainer>
+            <label htmlFor="gen-select">
+              <strong>Choose a generation:</strong>
+            </label>
+            <Select
+              value={generation}
+              id="gen-select"
+              onChange={(ev: React.ChangeEvent<HTMLSelectElement>): void =>
+                setGeneration(ev.target.value)
+              }
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </Select>
+          </SelectContainer>
+          <Search
+            placeholder="Search Pokemon..."
+            type="search"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+              setSearch(e.target.value)
+            }
           />
-        </div>
-      </ModalProvider>
-    );
-  }
+        </InputContainer>
+        {/* {saved && saved.length > 0 ? (
+          <>
+            <StyledHeading>Saved Pokemon</StyledHeading>
+            <PokeList
+              items={saved}
+              saveComponent={RemovePokemon}
+              handleSavedClick={removeSavedPokemon}
+            />
+          </>
+        ) : null} */}
+        {/* <StyledHeading>Gen {generation} Pokemon</StyledHeading> */}
+        {/* <PokeList
+          items={searchResults}
+          saveComponent={SavePokemon}
+          handleSavedClick={addSavedPokemon}
+        /> */}
+      </div>
+    </ModalProvider>
+  );
+  // }
 }
 
 export default App;

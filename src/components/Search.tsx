@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import styled from 'styled-components';
 
 const SearchInput = styled.input`
@@ -14,15 +15,15 @@ const SearchInput = styled.input`
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 `;
 
+export interface InputProps {
+  type?: string;
+  placeholder?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 //Search bar input
-const Search: React.FC = ({ handleChange }) => {
-  return (
-    <SearchInput
-      type="search"
-      placeholder="Search Pokemon..."
-      onChange={handleChange}
-    />
-  );
+const Search: React.FC<InputProps> = (props: InputProps) => {
+  return <SearchInput {...props} />;
 };
 
 export default Search;
