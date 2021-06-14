@@ -54,33 +54,33 @@ const Select = styled.select`
 // }
 
 function App() {
-  // const [error, setError] = useState(null);
-  // const [isLoaded, setIsLoaded] = useState(false);
-  // const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
-  // const [saved, setSaved] = useState([]);
+  const [saved, setSaved] = useState([]);
   const [generation, setGeneration] = useState<string>('1');
 
   //Fetch API for all pokemon results
-  // const getPokemon = (generation: number) => {
-  //   const url = `https://pokeapi.co/api/v2/generation/${generation}/`;
-  //   return fetch(url)
-  //     .then((res) => res.json())
-  //     .then(
-  //       (name) => {
-  //         setIsLoaded(true);
-  //         setItems(name.pokemon_species);
-  //       },
-  //       (error) => {
-  //         setIsLoaded(true);
-  //         setError(error);
-  //       }
-  //     );
-  // };
+  const getPokemon = (generation: string) => {
+    const url = `https://pokeapi.co/api/v2/generation/${generation}/`;
+    return fetch(url)
+      .then((res) => res.json())
+      .then(
+        (name) => {
+          setIsLoaded(true);
+          setItems(name.pokemon_species);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  };
 
-  // useEffect(() => {
-  //   getPokemon(generation);
-  // }, [generation]);
+  useEffect(() => {
+    getPokemon(generation);
+  }, [generation]);
 
   // const saveToLocalStorage = (items: string) => {
   //   localStorage.setItem('saved-pokemon', JSON.stringify(items));
