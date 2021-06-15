@@ -31,13 +31,30 @@ const StyledButton = styled(Button)`
   margin-top: 1rem;
 `;
 
-const ListItem: React.FC = ({ item }) => {
+export interface Poke {
+  name: string;
+  id?: number;
+  weight?: number;
+  height?: number;
+  abilities?: {
+    ability?: { name: string; url: string };
+    is_hidden?: boolean;
+    slot?: number;
+  }[];
+  types?: { slot: number; type: { name: string; url: string } }[];
+  sprites?: { front_default: string };
+}
+interface ListItemProps {
+  poke: Poke;
+}
+
+const ListItem: React.FC<ListItemProps> = ({ poke }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pokemon, setPokemon] = useState('');
   const [pokemonData, setPokemonData] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  function capitalise(str) {
+  function capitalise(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
@@ -55,18 +72,18 @@ const ListItem: React.FC = ({ item }) => {
   }
 
   useEffect(() => {
-    setPokemon(item.name);
-  }, [item.name]);
+    setPokemon(poke.name);
+  }, [poke.name]);
 
   const getPokemonData = () => {
-    const toArray = [];
+    // const arr = [];
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     return fetch(url)
       .then((res) => res.json())
       .then(
         (data) => {
-          toArray.push(data);
-          setPokemonData(toArray);
+          // arr.push(data);
+          setPokemonData(data);
         },
         (error) => {
           setError(error);
@@ -75,20 +92,20 @@ const ListItem: React.FC = ({ item }) => {
   };
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   } else {
     return (
       <StyledListItem onClick={handleClick}>
-        <Title>{capitalise(item.name)}</Title>
+        <Title>{capitalise(poke.name)}</Title>
         <img
           alt="pokemon"
           width="auto"
           height="120px"
-          src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`}
+          src={`https://img.pokemondb.net/artwork/large/${poke.name}.jpg`}
         />
         <StyledModal isOpen={isOpen}>
           {pokemonData.length > 0
-            ? pokemonData.map((data) => {
+            ? pokemonData.map((data: Poke) => {
                 return (
                   <div key={data.id}>
                     <h4>{capitalise(data.name)}</h4>
@@ -100,35 +117,41 @@ const ListItem: React.FC = ({ item }) => {
                     <div>
                       <div>
                         <strong>Height: </strong>
-                        {Math.round(data.height * 3.9)}"
+                        {data.height
+                          ? Math.round(data.height * 3.9)
+                          : null}{' '}
                       </div>
                     </div>
                     <div>
                       <div>
                         <strong>Weight: </strong>{' '}
-                        {Math.round(data.weight / 4.3)} lbs
+                        {data.weight ? Math.round(data.weight / 4.3) : null}
                       </div>
                     </div>
                     <div>
                       <div>
                         <strong>Type: </strong>{' '}
-                        {capitalise(data.types[0].type.name)}
+                        {data.types
+                          ? capitalise(data.types[0].type.name)
+                          : null}
                       </div>
                       <div>
-                        {data.types[1]
+                        {data.types
                           ? capitalise(data.types[1].type.name)
                           : null}
                       </div>
                     </div>
-                    <div>
+                    {/* <div>
                       <strong>Abilities: </strong>
-                      {capitalise(data.abilities[0].ability.name)}
-                    </div>
+                      {data.abilities
+                        ? capitalise(data?.abilities[0].ability.name)
+                        : null}
+                    </div> 
                     <div>
                       {data.abilities[1]
                         ? capitalise(data.abilities[1].ability.name)
                         : null}
-                    </div>
+                    </div>*/}
                     <StyledButton variant="danger" onClick={closeModal}>
                       Close
                     </StyledButton>

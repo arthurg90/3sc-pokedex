@@ -54,7 +54,7 @@ const Select = styled.select`
 // }
 
 function App() {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
@@ -109,46 +109,46 @@ function App() {
   //   pokemon.name.toLowerCase().includes(search.toLowerCase())
   // );
 
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // } else if (!isLoaded) {
-  //   return <div>Loading...</div>;
-  // } else {
-  return (
-    <ModalProvider>
-      <div className="App">
-        <Header />
-        <InputContainer>
-          <SelectContainer>
-            <label htmlFor="gen-select">
-              <strong>Choose a generation:</strong>
-            </label>
-            <Select
-              value={generation}
-              id="gen-select"
-              onChange={(ev: React.ChangeEvent<HTMLSelectElement>): void =>
-                setGeneration(ev.target.value)
+  if (error) {
+    return <div>Error: {error}</div>;
+  } else if (!isLoaded) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <ModalProvider>
+        <div className="App">
+          <Header />
+          <InputContainer>
+            <SelectContainer>
+              <label htmlFor="gen-select">
+                <strong>Choose a generation:</strong>
+              </label>
+              <Select
+                value={generation}
+                id="gen-select"
+                onChange={(ev: React.ChangeEvent<HTMLSelectElement>): void =>
+                  setGeneration(ev.target.value)
+                }
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </Select>
+            </SelectContainer>
+            <Search
+              placeholder="Search Pokemon..."
+              type="search"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                setSearch(e.target.value)
               }
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </Select>
-          </SelectContainer>
-          <Search
-            placeholder="Search Pokemon..."
-            type="search"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-              setSearch(e.target.value)
-            }
-          />
-        </InputContainer>
-        {/* {saved && saved.length > 0 ? (
+            />
+          </InputContainer>
+          {/* {saved && saved.length > 0 ? (
           <>
             <StyledHeading>Saved Pokemon</StyledHeading>
             <PokeList
@@ -158,16 +158,16 @@ function App() {
             />
           </>
         ) : null} */}
-        {/* <StyledHeading>Gen {generation} Pokemon</StyledHeading> */}
-        {/* <PokeList
+          {/* <StyledHeading>Gen {generation} Pokemon</StyledHeading> */}
+          {/* <PokeList
           items={searchResults}
           saveComponent={SavePokemon}
           handleSavedClick={addSavedPokemon}
         /> */}
-      </div>
-    </ModalProvider>
-  );
-  // }
+        </div>
+      </ModalProvider>
+    );
+  }
 }
 
 export default App;

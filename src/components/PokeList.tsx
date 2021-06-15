@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ListItem from './ListItem';
+import ListItem, { Poke } from './ListItem';
 
 const StyledList = styled.div`
   display: flex;
@@ -36,17 +36,21 @@ const PokemonContainer = styled.div`
   }
 `;
 
+interface ListProps {
+  pokes: Poke[];
+}
+
 //Pokemon list to display all pokemon on the page
-const PokeList: React.FC = (props) => {
-  const SaveComponent = props.saveComponent;
+const PokeList: React.FC<ListProps> = ({ pokes }) => {
+  // const SaveComponent = props.saveComponent;
   return (
     <StyledList>
-      {props.items.map((item, index) => (
+      {pokes.map((poke, index) => (
         <PokemonContainer key={index}>
-          <ListItem item={item}></ListItem>
-          <Overlay onClick={() => props.handleSavedClick(item)}>
+          <ListItem poke={poke}></ListItem>
+          {/* <Overlay onClick={() => handleSavedClick(poke)}>
             <SaveComponent />
-          </Overlay>
+          </Overlay> */}
         </PokemonContainer>
       ))}
     </StyledList>
