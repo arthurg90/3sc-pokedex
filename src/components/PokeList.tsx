@@ -41,8 +41,8 @@ interface ListProps {
 }
 
 //Pokemon list to display all pokemon on the page
-const PokeList: React.FC<ListProps> = ({ items }) => {
-  // const SaveComponent = props.saveComponent;
+const PokeList: React.FC<ListProps> = ({ items }, props) => {
+  const SaveComponent = props.saveComponent;
   return (
     <StyledList>
       {items.map((poke, index) => (

@@ -6,7 +6,7 @@ import Header from './components/Header';
 import PokeList from './components/PokeList';
 import Search from './components/Search';
 import { Poke } from './components/ListItem';
-// import SavePokemon from './components/SavePokemon';
+import SavePokemon from './components/SavePokemon';
 // import RemovePokemon from './components/RemovePokemon';
 
 const StyledHeading = styled.h4`
@@ -59,7 +59,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
-  const [saved, setSaved] = useState([]);
+  const [saved, setSaved] = useState<Poke[]>([]);
   const [generation, setGeneration] = useState<string>('1');
 
   //Fetch API for all pokemon results
@@ -83,17 +83,17 @@ function App() {
     getPokemon(generation);
   }, [generation]);
 
-  // const saveToLocalStorage = (items: string) => {
-  //   localStorage.setItem('saved-pokemon', JSON.stringify(items));
-  // };
+  const saveToLocalStorage = (items: Poke[]) => {
+    localStorage.setItem('saved-pokemon', JSON.stringify(items));
+  };
 
-  // const addSavedPokemon = (item: string, saved: Array<save>) => {
-  //   // Check if an item is already in the saved state to avoid adding duplicates
-  //   const prevSaved = saved.filter((s) => s.name !== item.name);
-  //   const newSavedList = [...prevSaved, item];
-  //   setSaved(newSavedList);
-  //   saveToLocalStorage(newSavedList);
-  // };
+  const addSavedPokemon = (item: Poke, saved: Poke[]) => {
+    // Check if an item is already in the saved state to avoid adding duplicates
+    const prevSaved = saved.filter((s) => s.name !== item.name);
+    const newSavedList = [...prevSaved, item];
+    setSaved(newSavedList);
+    saveToLocalStorage(newSavedList);
+  };
 
   // useEffect(() => {
   //   const savedPokemon = JSON.parse(localStorage.getItem('saved-pokemon'));
@@ -159,7 +159,7 @@ function App() {
               />
             </>
           ) : null}
-          <StyledHeading>Gen {generation} Pokemon</StyledHeading>
+          <StyledHeading>Generation {generation} Pokemon</StyledHeading>
           <PokeList
             items={searchResults}
             // saveComponent={SavePokemon}

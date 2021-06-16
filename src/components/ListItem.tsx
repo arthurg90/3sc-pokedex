@@ -51,7 +51,7 @@ interface ListItemProps {
 const ListItem: React.FC<ListItemProps> = ({ poke }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pokemon, setPokemon] = useState('');
-  const [pokemonData, setPokemonData] = useState([]);
+  const [pokemonData, setPokemonData] = useState<Poke[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   function capitalise(str: string) {
@@ -76,14 +76,14 @@ const ListItem: React.FC<ListItemProps> = ({ poke }) => {
   }, [poke.name]);
 
   const getPokemonData = () => {
-    // const arr = [];
+    const toArray: Poke[] = [];
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     return fetch(url)
       .then((res) => res.json())
       .then(
         (data) => {
-          // arr.push(data);
-          setPokemonData(data);
+          toArray.push(data);
+          setPokemonData(toArray);
         },
         (error) => {
           setError(error);
@@ -104,61 +104,49 @@ const ListItem: React.FC<ListItemProps> = ({ poke }) => {
           src={`https://img.pokemondb.net/artwork/large/${poke.name}.jpg`}
         />
         <StyledModal isOpen={isOpen}>
-          {pokemonData.length > 0
-            ? pokemonData.map((data: Poke) => {
-                return (
-                  <div key={data.id}>
-                    <h4>{capitalise(data.name)}</h4>
-                    {data.sprites ? (
-                      <img src={data.sprites['front_default']} alt="sprite" />
-                    ) : (
-                      ''
-                    )}
+          {pokemonData &&
+            pokemonData.map((poke: Poke) => {
+              return (
+                <div key={poke.id}>
+                  <h4>{capitalise(poke.name)}</h4>
+                  {poke.sprites && (
+                    <img src={poke.sprites['front_default']} alt="sprite" />
+                  )}
+                  {poke.height && (
                     <div>
                       <div>
                         <strong>Height: </strong>
-                        {data.height
-                          ? Math.round(data.height * 3.9)
-                          : null}{' '}
+                        {Math.round(poke.height * 3.9) + ' inches'}
                       </div>
                     </div>
+                  )}
+                  {poke.weight && (
                     <div>
                       <div>
-                        <strong>Weight: </strong>{' '}
-                        {data.weight ? Math.round(data.weight / 4.3) : null}
+                        <strong>Weight: </strong>
+                        {Math.round(poke.weight / 4.3) + ' lbs'}
                       </div>
                     </div>
+                  )}
+                  {poke.types && (
                     <div>
                       <div>
                         <strong>Type: </strong>{' '}
-                        {data.types
-                          ? capitalise(data.types[0].type.name)
-                          : null}
+                        {poke.types && capitalise(poke.types[0].type.name)}
                       </div>
-                      <div>
-                        {data.types
-                          ? capitalise(data.types[1].type.name)
-                          : null}
-                      </div>
+                      {poke.types[1] && (
+                        <div>
+                          {poke.types && capitalise(poke.types[1].type.name)}
+                        </div>
+                      )}
                     </div>
-                    {/* <div>
-                      <strong>Abilities: </strong>
-                      {data.abilities
-                        ? capitalise(data?.abilities[0].ability.name)
-                        : null}
-                    </div> 
-                    <div>
-                      {data.abilities[1]
-                        ? capitalise(data.abilities[1].ability.name)
-                        : null}
-                    </div>*/}
-                    <StyledButton variant="danger" onClick={closeModal}>
-                      Close
-                    </StyledButton>
-                  </div>
-                );
-              })
-            : null}
+                  )}
+                  <StyledButton variant="danger" onClick={closeModal}>
+                    Close
+                  </StyledButton>
+                </div>
+              );
+            })}
         </StyledModal>
       </StyledListItem>
     );
