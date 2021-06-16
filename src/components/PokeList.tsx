@@ -37,15 +37,15 @@ const PokemonContainer = styled.div`
 `;
 
 interface ListProps {
-  pokes: Poke[];
+  items: Poke[];
 }
 
 //Pokemon list to display all pokemon on the page
-const PokeList: React.FC<ListProps> = ({ pokes }) => {
+const PokeList: React.FC<ListProps> = ({ items }) => {
   // const SaveComponent = props.saveComponent;
   return (
     <StyledList>
-      {pokes.map((poke, index) => (
+      {items.map((poke, index) => (
         <PokemonContainer key={index}>
           <ListItem poke={poke}></ListItem>
           {/* <Overlay onClick={() => handleSavedClick(poke)}>

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { ModalProvider } from 'styled-react-modal';
 import Header from './components/Header';
-// import PokeList from './components/PokeList';
+import PokeList from './components/PokeList';
 import Search from './components/Search';
+import { Poke } from './components/ListItem';
 // import SavePokemon from './components/SavePokemon';
 // import RemovePokemon from './components/RemovePokemon';
 
@@ -105,9 +106,9 @@ function App() {
   //   saveToLocalStorage(newSavedList);
   // };
 
-  // const searchResults = items.filter((pokemon) =>
-  //   pokemon.name.toLowerCase().includes(search.toLowerCase())
-  // );
+  const searchResults = items.filter((pokemon: Poke) =>
+    pokemon.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -148,22 +149,22 @@ function App() {
               }
             />
           </InputContainer>
-          {/* {saved && saved.length > 0 ? (
-          <>
-            <StyledHeading>Saved Pokemon</StyledHeading>
-            <PokeList
-              items={saved}
-              saveComponent={RemovePokemon}
-              handleSavedClick={removeSavedPokemon}
-            />
-          </>
-        ) : null} */}
-          {/* <StyledHeading>Gen {generation} Pokemon</StyledHeading> */}
-          {/* <PokeList
-          items={searchResults}
-          saveComponent={SavePokemon}
-          handleSavedClick={addSavedPokemon}
-        /> */}
+          {saved && saved.length > 0 ? (
+            <>
+              <StyledHeading>Saved Pokemon</StyledHeading>
+              <PokeList
+                items={saved}
+                // saveComponent={RemovePokemon}
+                // handleSavedClick={removeSavedPokemon}
+              />
+            </>
+          ) : null}
+          <StyledHeading>Gen {generation} Pokemon</StyledHeading>
+          <PokeList
+            items={searchResults}
+            // saveComponent={SavePokemon}
+            // handleSavedClick={addSavedPokemon}
+          />
         </div>
       </ModalProvider>
     );
