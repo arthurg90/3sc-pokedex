@@ -37,16 +37,16 @@ const PokemonContainer = styled.div`
   }
 `;
 
-const SaveComponent = styled.div``;
-
 interface ListProps {
   items: Poke[];
   // handleClick?: (e: React.MouseEvent<HTMLButtonElement>, poke: Poke) => void;
   handleClick?: (item: Poke) => void;
+  saveComponent?: any;
 }
 
 //Pokemon list to display all pokemon on the page
 const PokeList: React.FC<ListProps> = (props: ListProps) => {
+  const SaveComponent = props.saveComponent;
   return (
     <StyledList>
       {props.items.map((poke, index) => (

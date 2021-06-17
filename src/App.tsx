@@ -7,7 +7,7 @@ import PokeList from './components/PokeList';
 import Search from './components/Search';
 import { Poke } from './components/ListItem';
 import SavePokemon from './components/SavePokemon';
-// import RemovePokemon from './components/RemovePokemon';
+import RemovePokemon from './components/RemovePokemon';
 
 const StyledHeading = styled.h4`
   color: darkgrey;
@@ -108,11 +108,11 @@ function App() {
   //   setSaved(savedPokemon);
   // }, []);
 
-  // const removeSavedPokemon = (item) => {
-  //   const newSavedList = saved.filter((s) => s.name !== item.name);
-  //   setSaved(newSavedList);
-  //   saveToLocalStorage(newSavedList);
-  // };
+  const removeSavedPokemon = (item: Poke) => {
+    const newSavedList = saved.filter((s) => s.name !== item.name);
+    setSaved(newSavedList);
+    saveToLocalStorage(newSavedList);
+  };
 
   const searchResults = items.filter((pokemon: Poke) =>
     pokemon.name.toLowerCase().includes(search.toLowerCase())
@@ -162,15 +162,15 @@ function App() {
               <StyledHeading>Saved Pokemon</StyledHeading>
               <PokeList
                 items={saved}
-                // saveComponent={RemovePokemon}
-                // handleSavedClick={removeSavedPokemon}
+                saveComponent={RemovePokemon}
+                handleClick={removeSavedPokemon}
               />
             </>
           ) : null}
           <StyledHeading>Generation {generation} Pokemon</StyledHeading>
           <PokeList
             items={searchResults}
-            // saveComponent={SavePokemon}
+            saveComponent={SavePokemon}
             handleClick={addSavedPokemon}
           />
         </div>
