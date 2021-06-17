@@ -87,14 +87,6 @@ function App() {
     localStorage.setItem('saved-pokemon', JSON.stringify(items));
   };
 
-  // const addSavedPokemon = (item: Poke, saved: Poke[]) => {
-  //   // Check if an item is already in the saved state to avoid adding duplicates
-  //   const prevSaved = saved.filter((s) => s.name !== item.name);
-  //   const newSavedList = [...prevSaved, item];
-  //   setSaved(newSavedList);
-  //   saveToLocalStorage(newSavedList);
-  // };
-
   const addSavedPokemon = (item: Poke) => {
     // Check if an item is already in the saved state to avoid adding duplicates
     const prevSaved = saved.filter((s) => s.name !== item.name);
@@ -103,10 +95,12 @@ function App() {
     saveToLocalStorage(newSavedList);
   };
 
-  // useEffect(() => {
-  //   const savedPokemon = JSON.parse(localStorage.getItem('saved-pokemon'));
-  //   setSaved(savedPokemon);
-  // }, []);
+  useEffect(() => {
+    const savedPokemon = JSON.parse(
+      localStorage.getItem('saved-pokemon') || ''
+    );
+    setSaved(savedPokemon);
+  }, []);
 
   const removeSavedPokemon = (item: Poke) => {
     const newSavedList = saved.filter((s) => s.name !== item.name);

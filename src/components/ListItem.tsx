@@ -55,7 +55,9 @@ const ListItem: React.FC<ListItemProps> = ({ poke }) => {
   const [error, setError] = useState<string | null>(null);
 
   function capitalise(str: string) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    if (str?.length > 0) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
   }
 
   function handleClick() {
@@ -72,8 +74,8 @@ const ListItem: React.FC<ListItemProps> = ({ poke }) => {
   }
 
   useEffect(() => {
-    setPokemon(poke.name);
-  }, [poke.name]);
+    setPokemon(poke?.name);
+  }, [poke?.name]);
 
   const getPokemonData = () => {
     const toArray: Poke[] = [];
@@ -96,12 +98,12 @@ const ListItem: React.FC<ListItemProps> = ({ poke }) => {
   } else {
     return (
       <StyledListItem onClick={handleClick}>
-        <Title>{capitalise(poke.name)}</Title>
+        <Title>{capitalise(poke && poke.name)}</Title>
         <img
           alt="pokemon"
           width="auto"
           height="120px"
-          src={`https://img.pokemondb.net/artwork/large/${poke.name}.jpg`}
+          src={`https://img.pokemondb.net/artwork/large/${poke?.name}.jpg`}
         />
         <StyledModal isOpen={isOpen}>
           {pokemonData &&
