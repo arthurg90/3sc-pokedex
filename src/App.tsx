@@ -95,6 +95,12 @@ function App() {
     saveToLocalStorage(newSavedList);
   };
 
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    console.log('click!');
+    e.preventDefault();
+    // addSavedPokemon();
+  };
+
   useEffect(() => {
     const savedPokemon = JSON.parse(
       localStorage.getItem('saved-pokemon') || ''
@@ -157,7 +163,7 @@ function App() {
               <PokeList
                 items={saved}
                 saveComponent={RemovePokemon}
-                handleClick={removeSavedPokemon}
+                // handleClick={removeSavedPokemon}
               />
             </>
           ) : null}
@@ -165,7 +171,7 @@ function App() {
           <PokeList
             items={searchResults}
             saveComponent={SavePokemon}
-            handleClick={addSavedPokemon}
+            handleClick={handleClick}
           />
         </div>
       </ModalProvider>
