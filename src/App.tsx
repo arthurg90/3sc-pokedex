@@ -57,7 +57,7 @@ const Select = styled.select`
 function App() {
   const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Poke[]>([]);
   const [search, setSearch] = useState('');
   const [saved, setSaved] = useState<Poke[]>([]);
   const [generation, setGeneration] = useState<string>('1');
@@ -93,12 +93,6 @@ function App() {
     const newSavedList = [...prevSaved, item];
     setSaved(newSavedList);
     saveToLocalStorage(newSavedList);
-  };
-
-  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log('click!');
-    e.preventDefault();
-    // addSavedPokemon();
   };
 
   useEffect(() => {
@@ -163,7 +157,7 @@ function App() {
               <PokeList
                 items={saved}
                 saveComponent={RemovePokemon}
-                // handleClick={removeSavedPokemon}
+                handleSaveClick={removeSavedPokemon}
               />
             </>
           ) : null}
@@ -171,7 +165,7 @@ function App() {
           <PokeList
             items={searchResults}
             saveComponent={SavePokemon}
-            handleClick={handleClick}
+            handleSaveClick={addSavedPokemon}
           />
         </div>
       </ModalProvider>

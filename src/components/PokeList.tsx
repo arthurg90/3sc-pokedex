@@ -40,9 +40,9 @@ const PokemonContainer = styled.div`
 interface ListProps {
   items: Poke[];
   // handleClick?: (e: React.MouseEvent<HTMLButtonElement>, poke: Poke) => void;
-  // handleClick?: (item: Poke) => void;
+  handleSaveClick: (poke: Poke) => void;
   saveComponent?: any;
-  handleClick?: React.MouseEventHandler<HTMLDivElement>;
+  // handleSaveClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 //Pokemon list to display all pokemon on the page
@@ -53,7 +53,7 @@ const PokeList: React.FC<ListProps> = (props: ListProps) => {
       {props.items.map((poke, index) => (
         <PokemonContainer key={index}>
           <ListItem poke={poke}></ListItem>
-          <Overlay onClick={props.handleClick}>
+          <Overlay onClick={() => props.handleSaveClick(poke)}>
             <SaveComponent />
           </Overlay>
         </PokemonContainer>
