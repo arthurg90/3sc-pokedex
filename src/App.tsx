@@ -44,16 +44,6 @@ const Select = styled.select`
   border-radius: 0.25rem;
 `;
 
-// type save = {
-//   id: string;
-//   name: string;
-// };
-
-// interface PokeProps {
-//   generation: number;
-//   saved: Array<save>;
-// }
-
 function App() {
   const [error, setError] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -81,6 +71,7 @@ function App() {
 
   useEffect(() => {
     getPokemon(generation);
+    // localStorage.clear();
   }, [generation]);
 
   const saveToLocalStorage = (items: Poke[]) => {
@@ -94,13 +85,6 @@ function App() {
     setSaved(newSavedList);
     saveToLocalStorage(newSavedList);
   };
-
-  //   useEffect(() => {
-  //     const savedPokemon = JSON.parse(
-  //       localStorage.getItem('saved-pokemon') || ''
-  // );
-  //     setSaved(savedPokemon);
-  //   }, []);
 
   useEffect(() => {
     const savedPokemon = localStorage.getItem('saved-pokemon');

@@ -39,10 +39,8 @@ const PokemonContainer = styled.div`
 
 interface ListProps {
   items: Poke[];
-  // handleClick?: (e: React.MouseEvent<HTMLButtonElement>, poke: Poke) => void;
   handleSaveClick: (poke: Poke) => void;
   saveComponent?: any;
-  // handleSaveClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 //Pokemon list to display all pokemon on the page
