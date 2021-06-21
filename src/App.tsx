@@ -95,11 +95,19 @@ function App() {
     saveToLocalStorage(newSavedList);
   };
 
+  //   useEffect(() => {
+  //     const savedPokemon = JSON.parse(
+  //       localStorage.getItem('saved-pokemon') || ''
+  // );
+  //     setSaved(savedPokemon);
+  //   }, []);
+
   useEffect(() => {
-    const savedPokemon = JSON.parse(
-      localStorage.getItem('saved-pokemon') || ''
-    );
-    setSaved(savedPokemon);
+    const savedPokemon = localStorage.getItem('saved-pokemon');
+    if (savedPokemon) {
+      setSaved(JSON.parse(savedPokemon));
+      console.log(savedPokemon);
+    }
   }, []);
 
   const removeSavedPokemon = (item: Poke) => {
